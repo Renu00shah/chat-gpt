@@ -4,7 +4,7 @@ import { Context } from "../../context/Context";
 
 export default function Sidebar() {
   const [extended, setExtended] = useState(false);
-  const { onSent, prevPrompts, setRecentPrompt } = useContext(Context);
+  const { onSent, prevPrompts, setRecentPrompt, newChat } = useContext(Context);
   // const loadPrompt = async (prompt) => {
   //   console.log("Loading Prompt:", prompt);
   //   setRecentPrompt(prompt);
@@ -15,7 +15,10 @@ export default function Sidebar() {
       {/* Top Section */}
       <div className="">
         <img width={20} src={assets.menu_icon} alt="menu" />
-        <div className=" flex items-center gap-3 bg-[#e6eaf1] rounded-full text-sm cursor-pointer text-gray-500 p-2 mt-2">
+        <div
+          onClick={() => newChat()}
+          className=" flex items-center gap-3 bg-[#e6eaf1] rounded-full text-sm cursor-pointer text-gray-500 p-2 mt-2"
+        >
           <img width={20} src={assets.plus_icon} alt="plus" />
           <p>New Chat</p>
         </div>
