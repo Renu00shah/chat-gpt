@@ -86,19 +86,15 @@ export default function Main() {
               src={assets.gemini_icon}
               alt="Gemini"
             />
-            <div className="text-gray-800">
+            <div className="text-gray-800 w-full overflow-hidden p-2">
               {!loading ? (
                 <p
-                  className="text-[17px] font-extralight leading-[1.8]"
+                  className="text-[17px] font-extralight leading-[1.8] break-words whitespace-pre-wrap"
+                  style={{ maxHeight: "none", overflow: "visible" }}
                   dangerouslySetInnerHTML={{ __html: resultData }}
                 ></p>
               ) : (
-                <p className="text-gray-500">loading response...</p>
-                // <div className="flex flex-col gap-2 w-full">
-                //   <hr className="h-3 w-full rounded-md bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff]" />
-                //   <hr className="h-3 w-4/5 rounded-md bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff]" />
-                //   <hr className="h-3 w-3/5 rounded-md bg-gradient-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff]" />
-                // </div>
+                <p className="text-gray-500">Loading response...</p>
               )}
             </div>
           </div>
@@ -116,18 +112,6 @@ export default function Main() {
             placeholder="Ask anything..."
           />
           <div className="flex items-center gap-3">
-            <img
-              width={20}
-              src={assets.gallery_icon}
-              alt="gallery"
-              className="cursor-pointer"
-            />
-            <img
-              width={20}
-              src={assets.mic_icon}
-              alt="mic"
-              className="cursor-pointer"
-            />
             <img
               onClick={onSent}
               width={20}
