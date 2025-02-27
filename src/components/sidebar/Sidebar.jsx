@@ -19,18 +19,15 @@ export default function Sidebar() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [conversationToDelete, setConversationToDelete] = useState(null);
 
-  // Handle switching to a conversation
   const switchConversation = (conversationId) => {
     setActiveConversationId(conversationId);
   };
 
-  // Start renaming a conversation
   const startRename = (id, currentTitle) => {
     setEditingId(id);
     setNewTitle(currentTitle);
   };
 
-  // Confirm rename of a conversation
   const confirmRename = (id) => {
     if (newTitle.trim()) {
       renameConversation(id, newTitle.trim());
@@ -39,7 +36,6 @@ export default function Sidebar() {
     setNewTitle("");
   };
 
-  // Handle key press in rename input
   const handleKeyPress = (e, id) => {
     if (e.key === "Enter") {
       confirmRename(id);
@@ -49,7 +45,6 @@ export default function Sidebar() {
     }
   };
 
-  // Confirm conversation deletion
   const confirmDelete = () => {
     if (conversationToDelete) {
       deleteConversation(conversationToDelete);
@@ -58,26 +53,19 @@ export default function Sidebar() {
     setShowDeleteModal(false);
   };
 
-  // Cancel conversation deletion
   const cancelDelete = () => {
     setConversationToDelete(null);
     setShowDeleteModal(false);
   };
 
-  // Get all questions from all conversations, but deduplicated
   const getUniqueQuestions = () => {
-    // Array to collect all messages with their timestamps
     const allMessages = [];
 
     conversations.forEach((conv) => {
       if (conv.messages && conv.messages.length > 0) {
-        // Get all user messages for this conversation
         const userMessages = conv.messages.filter((msg) => msg.role === "user");
 
-        // Track message timestamps from conversation or assign them
         userMessages.forEach((msg, index) => {
-          // Create a timestamp for each message (newer messages have higher timestamps)
-          // If message has its own timestamp use it, otherwise simulate one based on index
           const msgTimestamp =
             msg.timestamp ||
             conv.timestamp - (userMessages.length - index - 1) * 1000;
@@ -92,10 +80,8 @@ export default function Sidebar() {
       }
     });
 
-    // First sort by timestamp (newest first)
     allMessages.sort((a, b) => b.timestamp - a.timestamp);
 
-    // Then deduplicate while preserving order (keeping first/latest occurrence of each message)
     const seen = new Set();
     const uniqueQuestions = allMessages.filter((msg) => {
       if (seen.has(msg.content)) {
@@ -108,31 +94,24 @@ export default function Sidebar() {
     return uniqueQuestions;
   };
 
-  // Filter questions based on search query
   const filteredQuestions = getUniqueQuestions().filter((question) =>
     question.content.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Format date for display
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    // If date is today, display time
     if (date.toDateString() === today.toDateString()) {
       return date.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       });
-    }
-    // If date is yesterday, display "Yesterday"
-    else if (date.toDateString() === yesterday.toDateString()) {
+    } else if (date.toDateString() === yesterday.toDateString()) {
       return "Yesterday";
-    }
-    // Otherwise display date
-    else {
+    } else {
       return date.toLocaleDateString([], { month: "short", day: "numeric" });
     }
   };
@@ -144,7 +123,6 @@ export default function Sidebar() {
           collapsed ? "w-[60px]" : "w-[280px]"
         } border-r border-gray-200`}
       >
-        {/* Header with menu toggle */}
         <div className="flex justify-between items-center p-4">
           <div className="flex items-center gap-2">
             <img
@@ -158,7 +136,6 @@ export default function Sidebar() {
           </div>
         </div>
 
-        {/* New Chat Button */}
         <div
           onClick={() => newChat()}
           className={`flex items-center gap-3 bg-blue-100 hover:bg-blue-200 rounded-lg text-blue-700 cursor-pointer p-3 mx-2 transition-colors ${
@@ -169,7 +146,6 @@ export default function Sidebar() {
           {!collapsed && <p className="font-medium">New Chat</p>}
         </div>
 
-        {/* Search Box - Only show when not collapsed */}
         {!collapsed && (
           <div className="mx-2 mt-4 relative">
             <input
@@ -210,11 +186,9 @@ export default function Sidebar() {
           </div>
         )}
 
-        {/* Questions List - Each UNIQUE question gets its own row */}
         <div className="mt-4 flex-grow overflow-y-auto">
           {filteredQuestions.length > 0 ? (
             <div className="space-y-1 px-2">
-              {/* Display unique questions */}
               {!collapsed &&
                 filteredQuestions.map((question, index) => (
                   <div
@@ -246,7 +220,6 @@ export default function Sidebar() {
                   </div>
                 ))}
 
-              {/* Collapsed view */}
               {collapsed &&
                 filteredQuestions.map((question, index) => (
                   <div
@@ -284,7 +257,6 @@ export default function Sidebar() {
           )}
         </div>
 
-        {/* Footer */}
         {!collapsed && (
           <div className="mt-auto p-3 border-t border-gray-200 text-xs text-gray-500 flex justify-between items-center">
             <span>GenericChat AI</span>
@@ -293,7 +265,6 @@ export default function Sidebar() {
         )}
       </div>
 
-      {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-sm mx-auto">

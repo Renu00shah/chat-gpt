@@ -29,7 +29,6 @@ export default function Main() {
   const inputRef = useRef(null);
   const resultRef = useRef(null);
 
-  // Theme management
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
@@ -39,38 +38,32 @@ export default function Main() {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // Scroll to bottom of results when new content is added
   useEffect(() => {
     if (resultRef.current) {
       resultRef.current.scrollTop = resultRef.current.scrollHeight;
     }
   }, [resultData]);
 
-  // Focus input when component loads
   useEffect(() => {
     if (inputRef.current && !showResult) {
       inputRef.current.focus();
     }
   }, [showResult]);
 
-  // Handle Enter key press in input
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !e.shiftKey && input.trim()) {
       e.preventDefault();
       onSent();
     } else if (e.key === "Enter" && e.shiftKey) {
-      // Allow multiline input with Shift+Enter
       setInput((prev) => prev + "\n");
     }
   };
 
-  // Handle suggestion click
   const handleSuggestionClick = (suggestion) => {
     setInput(suggestion);
     setTimeout(() => onSent(suggestion), 100);
   };
 
-  // Copy response to clipboard
   const copyToClipboard = () => {
     if (resultData) {
       navigator.clipboard.writeText(resultData).then(() => {
@@ -80,7 +73,6 @@ export default function Main() {
     }
   };
 
-  // Enhance suggestions with more variety and usefulness
   const suggestions = [
     {
       text: "Suggest beautiful places on our road trip",
@@ -112,9 +104,7 @@ export default function Main() {
           : "bg-white text-gray-800"
       }`}
     >
-      {/* Main content */}
       <div className="flex-grow flex flex-col min-h-screen relative">
-        {/* Top Section */}
         <header
           className={`flex items-center justify-between p-4 border-b ${
             theme === "dark" ? "border-gray-700" : "border-gray-200"
@@ -212,7 +202,6 @@ export default function Main() {
         </header>
 
         <main className="flex-grow overflow-y-auto p-4">
-          {/* Greeting & Prompt Section */}
           {!showResult ? (
             <div
               className={`text-center font-medium mt-6 animate-fade-in ${
@@ -232,7 +221,6 @@ export default function Main() {
                 How can I help you today?
               </p>
 
-              {/* Suggestion Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 max-w-3xl mx-auto">
                 {suggestions.map((item, index) => (
                   <button
@@ -284,7 +272,6 @@ export default function Main() {
             </div>
           ) : (
             <div className="flex flex-col items-center gap-6 p-4 md:p-6 max-w-[800px] mx-auto">
-              {/* User Query */}
               <div
                 className={`flex items-start gap-3 w-full p-3 md:p-4 rounded-lg
                 ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"} ${
@@ -315,7 +302,6 @@ export default function Main() {
                 </div>
               </div>
 
-              {/* GenericChat Response */}
               <div
                 className={`flex items-start gap-3 w-full p-3 md:p-4 rounded-lg 
                 ${
@@ -651,7 +637,6 @@ export default function Main() {
           )}
         </main>
 
-        {/* Input Section */}
         <footer
           className={`sticky bottom-0 p-4 border-t ${
             theme === "dark"
