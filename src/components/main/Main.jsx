@@ -134,7 +134,7 @@ export default function Main() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button
+            {/* <button
               onClick={toggleTheme}
               className={`p-2 rounded ${
                 theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-100"
@@ -182,7 +182,7 @@ export default function Main() {
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
               )}
-            </button>
+            </button> */}
 
             {showResult && (
               <button
