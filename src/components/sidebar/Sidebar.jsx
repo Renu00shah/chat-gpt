@@ -154,7 +154,7 @@ export default function Sidebar() {
               className="cursor-pointer"
               onClick={() => setCollapsed(!collapsed)}
             />
-            {!collapsed && <span className="font-medium">Gemini Chat</span>}
+            {!collapsed && <span className="font-medium">GenericChat</span>}
           </div>
         </div>
 
@@ -287,7 +287,7 @@ export default function Sidebar() {
         {/* Footer */}
         {!collapsed && (
           <div className="mt-auto p-3 border-t border-gray-200 text-xs text-gray-500 flex justify-between items-center">
-            <span>Gemini AI</span>
+            <span>GenericChat AI</span>
             <span>v1.0</span>
           </div>
         )}

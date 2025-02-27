@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Background Circle -->
+  <circle cx="250" cy="250" r="200" fill="#4A6FA5" />
+  
+  <!-- Chat Bubble Shape -->
+  <path d="M150 150 L350 150 Q390 150 390 190 L390 270 Q390 310 350 310 L290 310 L250 350 L210 310 L150 310 Q110 310 110 270 L110 190 Q110 150 150 150 Z" fill="#FFFFFF" />
+  
+  <!-- Letter G stylized -->
+  <path d="M190 190 Q170 190 170 210 L170 250 Q170 270 190 270 L230 270 L230 240 L200 240 L200 220 L250 220 L250 270 Q250 290 230 290 L190 290 Q170 290 170 270 L170 210 Q170 190 190 190 L230 190 Q250 190 250 210 L250 220 L230 210 L230 210 Q220 190 190 190 Z" fill="#4A6FA5" />
+  
+  <!-- Letter C stylized -->
+  <path d="M310 190 Q330 190 330 210 L330 220 L310 220 L310 210 Q310 210 300 210 Q290 210 290 240 Q290 270 300 270 Q310 270 310 260 L310 250 L330 250 L330 270 Q330 290 310 290 L290 290 Q270 290 270 270 L270 210 Q270 190 290 190 L310 190 Z" fill="#4A6FA5" />
+  
+  <!-- Text "GeericChat" under the logo -->
+  <text x="250" y="390" font-family="Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#FFFFFF">GenericChat</text>
+</svg>

@@ -122,13 +122,17 @@ export default function Main() {
         >
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2">
-              <img src={assets.gemini_icon} alt="Gemini" className="w-8 h-8" />
+              <img
+                src={assets.gemini_icon}
+                alt="GenericChat"
+                className="w-8 h-8"
+              />
               <p
                 className={`text-lg font-medium ${
                   theme === "dark" ? "text-gray-200" : "text-gray-600"
                 }`}
               >
-                Gemini
+                GenericChat
               </p>
             </div>
           </div>
@@ -311,7 +315,7 @@ export default function Main() {
                 </div>
               </div>
 
-              {/* Gemini Response */}
+              {/* GenericChat Response */}
               <div
                 className={`flex items-start gap-3 w-full p-3 md:p-4 rounded-lg 
                 ${
@@ -331,7 +335,7 @@ export default function Main() {
                         theme === "dark" ? "text-gray-300" : "text-gray-900"
                       }`}
                     >
-                      Gemini
+                      GenericChat
                     </p>
 
                     {resultData && !loading && (
@@ -682,7 +686,7 @@ export default function Main() {
                   }`}
                 placeholder="Ask anything... (Shift+Enter for new line)"
                 disabled={loading}
-                aria-label="Ask Gemini anything"
+                aria-label="Ask GenericChat anything"
               />
               <div className="flex items-center gap-2 md:gap-3">
                 {input.trim() && (
@@ -743,8 +747,8 @@ export default function Main() {
               <span role="img" aria-label="Info" className="mr-1">
                 ℹ️
               </span>
-              Gemini may display inaccurate information, so double-check its
-              responses.
+              GenericChat may display inaccurate information, so double-check
+              its responses.
               <span className="hidden md:inline">
                 {" "}
                 Press Shift+Enter for a new line.

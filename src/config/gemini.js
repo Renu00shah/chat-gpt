@@ -51,7 +51,7 @@ const safetySettings = [
 let chatHistory = [];
 
 /**
- * Run a prompt through the Gemini API
+ * Run a prompt through the GenericChat API
  * @param {string} prompt - The user prompt
  * @param {Object} customConfig - Optional custom configuration
  * @param {boolean} useHistory - Whether to use chat history
@@ -85,7 +85,7 @@ async function run(prompt, customConfig = {}, useHistory = true) {
     });
 
     console.log(
-      `Sending prompt to Gemini: "${prompt.substring(0, 50)}${
+      `Sending prompt to GenericChat: "${prompt.substring(0, 50)}${
         prompt.length > 50 ? "..." : ""
       }"`
     );
@@ -107,7 +107,7 @@ async function run(prompt, customConfig = {}, useHistory = true) {
 
     return responseText;
   } catch (error) {
-    console.error("Error in Gemini API call:", error);
+    console.error("Error in GenericChat API call:", error);
 
     // Return user-friendly error message
     if (error.message.includes("API key")) {
