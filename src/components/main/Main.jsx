@@ -41,7 +41,7 @@ export default function Main() {
           </p>
 
           {/* Suggestion Cards */}
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
+          <div className="flex flex-wrap justify-center gap-4 mt-10">
             {[
               {
                 text: "Suggest beautiful places on our road trip",
@@ -103,7 +103,7 @@ export default function Main() {
       )}
 
       {/* Input Section */}
-      <div className="mt-8">
+      <div className="mt-14">
         <div className="flex items-center bg-white p-2 md:p-3 rounded-lg shadow-md border border-gray-200">
           <input
             onChange={(e) => setInput(e.target.value)}
