@@ -102,16 +102,6 @@ export default function Main() {
       icon: assets.code_icon,
       description: "Help with programming",
     },
-    {
-      text: "Summarize this article for me",
-      icon: assets.document_icon || assets.message_icon,
-      description: "Quick content digestion",
-    },
-    {
-      text: "Help me troubleshoot a bug",
-      icon: assets.code_icon,
-      description: "Technical support",
-    },
   ];
 
   return (
@@ -144,6 +134,56 @@ export default function Main() {
           </div>
 
           <div className="flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded ${
+                theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-100"
+              } transition-colors`}
+              aria-label={
+                theme === "dark"
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
+            >
+              {theme === "dark" ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              )}
+            </button>
+
             {showResult && (
               <button
                 onClick={newChat}
@@ -248,12 +288,12 @@ export default function Main() {
                 }`}
               >
                 <img
-                  className="w-8 h-8 md:w-10 md:h-10 rounded-full mt-1"
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-full mt-1 flex-shrink-0"
                   src={assets.user_icon}
                   alt=""
                   aria-hidden="true"
                 />
-                <div className="flex-grow">
+                <div className="flex-grow min-w-0">
                   <p
                     className={`font-medium text-sm mb-1 ${
                       theme === "dark" ? "text-gray-300" : "text-gray-900"
@@ -279,12 +319,12 @@ export default function Main() {
                 }`}
               >
                 <img
-                  className="w-8 h-8 md:w-10 md:h-10 rounded-full mt-1"
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-full mt-1 flex-shrink-0"
                   src={assets.gemini_icon}
                   alt=""
                   aria-hidden="true"
                 />
-                <div className="flex-grow">
+                <div className="flex-grow min-w-0">
                   <div className="flex justify-between items-center mb-1">
                     <p
                       className={`font-medium text-sm ${
@@ -382,6 +422,28 @@ export default function Main() {
                           theme === "dark" ? "text-gray-200" : "text-gray-800"
                         }`}
                       >
+                        <style>
+                          {`
+                            /* Fix for dot above heading issue */
+                            .markdown-content ul + h1,
+                            .markdown-content ul + h2,
+                            .markdown-content ul + h3,
+                            .markdown-content ol + h1,
+                            .markdown-content ol + h2,
+                            .markdown-content ol + h3 {
+                              margin-top: 2rem !important;
+                              clear: both;
+                            }
+                            
+                            .markdown-content li {
+                              margin-bottom: 0.75rem;
+                            }
+                            
+                            .markdown-content li:last-child {
+                              margin-bottom: 1.5rem;
+                            }
+                          `}
+                        </style>
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           components={{
@@ -400,6 +462,12 @@ export default function Main() {
                                   style={atomDark}
                                   language={match[1]}
                                   PreTag="div"
+                                  customStyle={{
+                                    maxWidth: "100%",
+                                    overflowX: "auto",
+                                    marginTop: "1rem",
+                                    marginBottom: "1.5rem",
+                                  }}
                                   {...props}
                                 >
                                   {String(children).replace(/\n$/, "")}
@@ -419,7 +487,7 @@ export default function Main() {
                             },
                             a: ({ node, ...props }) => (
                               <a
-                                className={`hover:underline ${
+                                className={`hover:underline break-words ${
                                   theme === "dark"
                                     ? "text-blue-400"
                                     : "text-blue-500"
@@ -431,40 +499,60 @@ export default function Main() {
                             ),
                             h1: ({ node, ...props }) => (
                               <h1
-                                className="text-2xl font-bold mt-6 mb-4"
+                                className="text-2xl font-bold mt-8 mb-4 break-words clear-both"
                                 {...props}
                               />
                             ),
                             h2: ({ node, ...props }) => (
                               <h2
-                                className="text-xl font-bold mt-5 mb-3"
+                                className="text-xl font-bold mt-7 mb-3 break-words clear-both"
                                 {...props}
                               />
                             ),
                             h3: ({ node, ...props }) => (
                               <h3
-                                className="text-lg font-bold mt-4 mb-2"
+                                className="text-lg font-bold mt-6 mb-2 break-words clear-both"
                                 {...props}
                               />
                             ),
                             p: ({ node, ...props }) => (
-                              <p className="mb-4" {...props} />
+                              <p className="mb-4 break-words" {...props} />
                             ),
                             ul: ({ node, ...props }) => (
-                              <ul className="list-disc ml-5 mb-4" {...props} />
+                              <ul
+                                className="list-disc ml-5 mb-6 break-words"
+                                style={{
+                                  display: "block",
+                                  clear: "both",
+                                  marginBottom: "1.5rem",
+                                }}
+                                {...props}
+                              />
                             ),
                             ol: ({ node, ...props }) => (
                               <ol
-                                className="list-decimal ml-5 mb-4"
+                                className="list-decimal ml-5 mb-6 break-words"
+                                style={{
+                                  display: "block",
+                                  clear: "both",
+                                  marginBottom: "1.5rem",
+                                }}
                                 {...props}
                               />
                             ),
                             li: ({ node, ...props }) => (
-                              <li className="mb-1" {...props} />
+                              <li
+                                className="mb-2 break-words"
+                                style={{
+                                  position: "relative",
+                                  paddingLeft: "0.5rem",
+                                }}
+                                {...props}
+                              />
                             ),
                             blockquote: ({ node, ...props }) => (
                               <blockquote
-                                className={`border-l-4 pl-4 italic my-4 ${
+                                className={`border-l-4 pl-4 italic my-4 break-words ${
                                   theme === "dark"
                                     ? "border-gray-600"
                                     : "border-gray-300"
@@ -473,7 +561,7 @@ export default function Main() {
                               />
                             ),
                             table: ({ node, ...props }) => (
-                              <div className="overflow-x-auto my-4">
+                              <div className="overflow-x-auto my-4 w-full">
                                 <table
                                   className={`min-w-full border-collapse border ${
                                     theme === "dark"
@@ -522,6 +610,15 @@ export default function Main() {
                                     : "border-gray-300"
                                 }`}
                                 {...props}
+                              />
+                            ),
+                            img: ({ node, ...props }) => (
+                              <img
+                                className="max-w-full h-auto my-4"
+                                {...props}
+                                onError={(e) => {
+                                  e.target.style.display = "none";
+                                }}
                               />
                             ),
                           }}
